@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> Comp20: Assignment 4a</title>
+</head>
+<style>
+	form {
+		text-align: center;
+	}
+	body {
+		background: -webkit-linear-gradient(left, #3AD81B, #FFFFFF,#3AD81B);
+	}
+</style>
+<header>
+	<h1 align="center"><em>Lucky For Life!</em></h1><hr>
+</header>
+<body>
+	<h2 align="left">How to play:</h2>
+	<p>Choose 5 numbers between 1 and 48. Then choose a Lucky Ball number between 1 and 18.</p>
+		<h2 align="center">Payouts & Probabilities</h2>
+		<h2 align="center"><img src="Luck4LifeProbs.png" width=50% align="center"></h2><hr>
+	<h2 align="center">Enter your Picks!</h2>
+	<form>
+		<label> Choose 5 Numbers (1-48)</label>
+		<input type="number" id='n1' min="1" max="48" required="1">-
+		<input type="number" id='n2' min="1" max="48" required="1">-
+		<input type="number" id='n3' min="1" max="48" required="1">-
+		<input type="number" id='n4' min="1" max="48" required="1">-
+		<input type="number" id='n5' min="1" max="48" required="1">
+
+		<label> Lucky Ball (1-18)</label>
+		<input type="number" id='lucky' min="1" max="18" required="1">
+		<input type="submit" name="submit" onclick= "reportPrize()">
+		<input type="reset">
+	</form> 
+
+
+	<script language="javascript"> 
+	function reportPrize() {
+		var picks = new Array(document.getElementById('n1').value,
+			document.getElementById('n2').value,
+			document.getElementById('n3').value,
+			document.getElementById('n4').value,
+			document.getElementById('n5').value);
+		var win = new Array(5);
+			for (i = 0; i<5; i++){
+				win[i] = Math.random()*47 + 1;
+				win[i] = Math.round(win[i]);
+			}
+
+		var prize;
+		var match = 0;
+		for (i = 0; i<5; i++){
+			for (k=0;k<5;k++){
+				if (win[i]==picks[k]){
+					match++;
+					break;
+				}
+			}
+		}
+		
+		var luckyPic = document.getElementById('lucky').value;
+		var luckyNum = Math.random()*17 + 1;
+			luckyNum = Math.round(luckyNum);
+		var gotLucky = false;
+		if (luckyNum==luckyPic){
+			gotLucky = true;
+		}
+
+		var prize;
+		if (gotLucky == true){
+			switch(match){
+				case 5: prize = "Congrats you are LUCKY 4 LIFE! You have won $7000 a WEEK for LIFE!"; 
+				break;
+				case 4: prize ="Congrats you have won $5,000!"; 
+				break;
+				case 3: prize ="Congrats you have won $150!"; 
+				break;
+				case 2: prize ="Congrats you have won $25!"; 
+				break;
+				case 1: prize ="Congrats you have won $6!"; 
+				break;
+				default: prize="Congrats you have won $4!"; 
+			}
+		}
+		else {
+			switch(match){
+				case 5: prize = "Congrats you are LUCKY 4 LIFE! You have won $25000 a YEAR for LIFE!"; 
+				break;
+				case 4: prize ="Congrats you have won $200!"; 
+				break;
+				case 3: prize ="Congrats you have won $20!"; 
+				break;
+				case 2: prize ="Congrats you have won $3!"; 
+				break;
+				default: prize ="Sorry, better LUCK next time!";
+			}
+		}
+		alert("Draw Report!\n"+
+			"Your Numbers: "+picks[0]+"-"+picks[1]+"-"+picks[2]+"-"+picks[3]+"-"+picks[4]+" ("+luckyPic+")\n"+
+			"Winning Numbers: "+win[0]+"-"+win[1]+"-"+win[2]+"-"+win[3]+"-"+win[4]+" ("+luckyNum+")\n"+
+			prize);
+	}
+	</script>	
+</body>
+</html>
